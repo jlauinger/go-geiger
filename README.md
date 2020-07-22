@@ -1,4 +1,4 @@
-# go-geiger
+# go-geiger ![go-geiger logo](https://user-images.githubusercontent.com/1872086/88234925-1cd4b580-cc7a-11ea-8913-dbfe9e77f659.png)
 
 Find and count `unsafe.Pointer` usages in Go packages and their dependencies.
 
@@ -14,7 +14,7 @@ go-geiger -v github.com/jlauinger/go-geiger
 
 ## What is the benefit?
 
-Usages of `unsafe.Pointer` let a Go package avoid the restrictions Go normally sets on pointer use. This can be valuable
+A Go package can avoid the restrictions Go normally sets on pointer use by using `unsafe.Pointer`. This can be valuable
 to improve efficiency or even necessary e.g. to interact with C code or syscalls.
 
 However, developers must use extreme caution with `unsafe.Pointer` because mistakes can happen quickly and
