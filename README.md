@@ -120,6 +120,8 @@ $ cd go-geiger
 $ go build
 ```
 
+Run the tests with `go test`.
+
 
 ## License
 
