@@ -1,6 +1,10 @@
 # go-geiger
 
-Rust Cargo Geiger style unsafe usages counter for packages and their dependencies.
+Find and count unsafe usages in Go packages and their dependencies.
+
+
+## Output example
+
 
 
 ## Install
@@ -52,7 +56,7 @@ There are the following flags available:
 ```
 
 
-## Dependency Management
+## Dependency management
 
 If your project uses Go modules and a `go.mod` file, `go-geiger` will fetch all dependencies automatically before it
 analyzes them. It behaves exactly like `go build` would.
