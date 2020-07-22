@@ -1,5 +1,7 @@
 # go-geiger
 
+[![build](https://github.com/jlauinger/go-geiger/workflows/build/badge.svg)](https://github.com/jlauinger/go-geiger/actions/)
+
 Find and count `unsafe.Pointer` usages in Go packages and their dependencies.
 
 ![go-geiger logo](https://user-images.githubusercontent.com/1872086/88235953-3b3bb080-cc7c-11ea-8f99-ca4064ac83f1.png)
