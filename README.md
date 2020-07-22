@@ -5,6 +5,11 @@ Find and count unsafe usages in Go packages and their dependencies.
 
 ## Output example
 
+```
+go-geiger -v github.com/jlauinger/go-geiger
+```
+
+![go-geiger output example](https://user-images.githubusercontent.com/1872086/88232276-dc733880-cc75-11ea-8081-bab01106390b.png)
 
 
 ## Install
