@@ -1,4 +1,4 @@
-module github.com/stg-tud/thesis-2020-lauinger-code/go-geiger
+module github.com/jlauinger/go-geiger
 
 go 1.14
 

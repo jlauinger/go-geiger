@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/spf13/cobra"
-	"github.com/stg-tud/thesis-2020-lauinger-code/go-geiger/counter"
+	"github.com/jlauinger/go-geiger/counter"
 	"os"
 )
 

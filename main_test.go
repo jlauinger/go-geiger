@@ -3,7 +3,7 @@ package main
 import (
 	"bytes"
 	"github.com/acarl005/stripansi"
-	"github.com/stg-tud/thesis-2020-lauinger-code/go-geiger/counter"
+	"github.com/jlauinger/go-geiger/counter"
 	"regexp"
 	"strconv"
 	"strings"
