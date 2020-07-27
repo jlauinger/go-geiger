@@ -9,7 +9,7 @@ import (
 
 var maxDepth int
 var shortenSeenPackages, showStandardPackages, printLinkToPkgGoDev, printUnsafeLines, detailedStats, hideStats bool
-var filter string
+var matchFilter, contextFilter string
 
 var RootCmd = &cobra.Command{
 	Use:   "geiger",
@@ -27,7 +27,8 @@ var RootCmd = &cobra.Command{
 			PrintUnsafeLines:     printUnsafeLines,
 
 			ShowStandardPackages: showStandardPackages,
-			Filter:               filter,
+			MatchFilter:          matchFilter,
+			ContextFilter:        contextFilter,
 
 			Output:               os.Stdout,
 		}, args...)
@@ -51,5 +52,6 @@ func init() {
 	RootCmd.PersistentFlags().BoolVar(&printUnsafeLines, "show-code", false, "Print the code lines with unsafe usage")
 
 	RootCmd.PersistentFlags().BoolVar(&showStandardPackages, "include-std", false, "Show / include Golang stdlib packages")
-	RootCmd.PersistentFlags().StringVarP(&filter, "filter", "f", "all", "Print only lines of requested type (variable,parameter,assignment,call,other). You need to specify --show-code also.")
+	RootCmd.PersistentFlags().StringVar(&matchFilter, "filter-match", "pointer", "Count only lines of requested match type (all,pointer,sizeof,offsetof,alignof,sliceheader,stringheader,uintptr). Default pointer")
+	RootCmd.PersistentFlags().StringVar(&contextFilter, "filter-context", "all", "Count only lines of requested context type (all,variable,parameter,assignment,call,other). Default all")
 }

@@ -16,22 +16,6 @@ const (
 	L
 )
 
-type Stats struct {
-	ImportCount             int
-	UnsafeCount             int
-	TransitivelyUnsafeCount int
-	SafeCount               int
-}
-
-type LocalPackageCounts struct {
-	Local      int
-	Variable   int
-	Parameter  int
-	Assignment int
-	Call       int
-	Other      int
-}
-
 func printPkgTree(pkg *packages.Package, indents []IndentType, config Config, table *tablewriter.Table,
 	seen *map[*packages.Package]bool) (stats Stats) {
 	(*seen)[pkg] = true
@@ -42,7 +26,7 @@ func printPkgTree(pkg *packages.Package, indents []IndentType, config Config, ta
 
 	colors := getColors(countsInThisPackage.Local, totalCount, config)
 
-	if config.DetailedStats && config.Filter == "all" {
+	if config.DetailedStats && config.ContextFilter == "all" {
 		table.Rich([]string{strconv.Itoa(totalCount), strconv.Itoa(countsInThisPackage.Local),
 			strconv.Itoa(countsInThisPackage.Variable), strconv.Itoa(countsInThisPackage.Parameter),
 			strconv.Itoa(countsInThisPackage.Assignment), strconv.Itoa(countsInThisPackage.Call),
@@ -56,7 +40,7 @@ func printPkgTree(pkg *packages.Package, indents []IndentType, config Config, ta
 	nextIndents := getNextIndents(indents)
 
 	if len(indents) == config.MaxDepth && childCount > 0 {
-		if config.DetailedStats && config.Filter == "all" {
+		if config.DetailedStats && config.ContextFilter == "all" {
 			table.Append([]string{"", "", "", "", "", "", "", fmt.Sprintf("%sMaximum depth reached. Use --max-depth= to increase it",
 				getIndentString(append(nextIndents, L)))})
 		} else {
@@ -98,7 +82,7 @@ func printPkgTree(pkg *packages.Package, indents []IndentType, config Config, ta
 			countsInChild := getUnsafeCount(child, config)
 			totalCountInChild := getTotalUnsafeCount(child, config, &map[*packages.Package]bool{})
 
-			if config.DetailedStats && config.Filter == "all" {
+			if config.DetailedStats && config.ContextFilter == "all" {
 				table.Rich([]string{strconv.Itoa(totalCountInChild), strconv.Itoa(countsInChild.Local),
 					strconv.Itoa(countsInChild.Variable), strconv.Itoa(countsInChild.Parameter),
 					strconv.Itoa(countsInChild.Assignment), strconv.Itoa(countsInChild.Call),
@@ -147,7 +131,7 @@ func getColors(countInThisPackage int, totalCount int, config Config) []tablewri
 	} else {
 		color = tablewriter.Normal
 	}
-	if config.DetailedStats && config.Filter == "all" {
+	if config.DetailedStats && config.ContextFilter == "all" {
 		return []tablewriter.Colors{{color}, {color}, {color}, {color}, {color}, {color}, {color}, {color}}
 	} else {
 		return []tablewriter.Colors{{color}, {color}, {color}}

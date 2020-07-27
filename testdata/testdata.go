@@ -1,6 +1,9 @@
 package testdata
 
-import "unsafe"
+import (
+	"reflect"
+	"unsafe"
+)
 
 type Bar struct {
 	Baz unsafe.Pointer
@@ -17,13 +20,33 @@ func Entry() {
 	Foo(y)
 }
 
-/*
- This package should have:
+func SecondFunction() {
+	x := 42
+	_ = unsafe.Offsetof(x)
+	_ = unsafe.Alignof(x)
+	_ = unsafe.Sizeof(x)
+	_ = (*reflect.SliceHeader)(unsafe.Pointer(&x))
+	_ = (*reflect.StringHeader)(unsafe.Pointer(&x))
+	var foo uintptr
+	_ = foo
+}
 
- total count: 5
+/*
+ With matchType="pointer", this package should have:
+
+ total count: 7
 
  variable definition: 2
  parameter definition: 1
- assignment: 1
+ assignment: 3
+ call: 1
+
+ With matchType="all", this package should have:
+
+ total count: 13
+
+ variable definition: 3
+ parameter definition: 1
+ assignment: 8
  call: 1
  */

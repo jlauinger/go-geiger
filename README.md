@@ -4,9 +4,7 @@
 
 ![go-geiger logo](https://user-images.githubusercontent.com/1872086/88236443-55c25980-cc7d-11ea-9e81-15c28a8e7daa.png)
 
-Find and count `unsafe.Pointer` usages in Go packages and their dependencies.
-
-*It's dangerous to Go alone. Take \*this!*
+Find and count `unsafe` usages in Go packages and their dependencies.
 
 
 ## Output example
@@ -74,17 +72,61 @@ $ go-geiger --help
 There are the following flags available:
 
 ```
-  -f, --filter string    Print only lines of requested type (variable,parameter,assignment,call,other). You need to specify --show-code also. (default "all")
-  -h, --help             help for go-geiger
-  -q, --hide-stats       Hide statistics table, print only code. --show-code needs to be set manually
-      --include-std      Show / include Golang stdlib packages
-  -l, --link             Print link to pkg.go.dev instead of package name
-  -d, --max-depth int    Maximum transitive import depth (default 10)
-      --show-code        Print the code lines with unsafe usage
-      --show-only-once   Do not repeat packages, show them only once and abbreviate further imports (default true)
-  -v, --verbose          Show usage counts by different usage types
-
+      --filter-context string   Count only lines of requested context type (all,variable,parameter,assignment,call,other). Default all (default "all")
+      --filter-match string     Count only lines of requested match type (all,pointer,sizeof,offsetof,alignof,sliceheader,stringheader,uintptr). Default pointer (default "pointer")
+  -h, --help                    help for geiger
+  -q, --hide-stats              Hide statistics table, print only code. --show-code needs to be set manually
+      --include-std             Show / include Golang stdlib packages
+  -l, --link                    Print link to pkg.go.dev instead of package name
+  -d, --max-depth int           Maximum transitive import depth (default 10)
+      --show-code               Print the code lines with unsafe usage
+      --show-only-once          Do not repeat packages, show them only once and abbreviate further imports (default true)
+  -v, --verbose                 Show usage counts by different usage types
 ```
+
+
+## Unsafe Match Types
+
+By default, `go-geiger` will count only `unsafe.Pointer` usages. By setting the `--filter-match` argument to one of
+`sizeof`, `offsetof`, `alignof`, `sliceheader`, `stringheader`, `uintptr`, or `all`, you can also use `go-geiger` to
+find usages of `unsafe.Sizeof`, `unsafe.Offsetof`, `unsafe.Alignof`, `reflect.SliceHeader`, `reflect.StringHeader`,
+`uintptr`, or all of them at the same time.
+
+
+## Unsafe Context Types
+
+Using the `--verbose` argument, you can instruct `go-geiger` to show individual counts for different usage contexts
+of unsafe. `go-geiger` distinguishes between the following:
+
+Variable
+
+```go
+var x unsafe.Pointer
+```
+
+Parameter
+
+```go
+func foo(x unsafe.Pointer) {}
+```
+
+Assignment
+
+```go
+x := unsafe.Pointer(&y)
+```
+
+Call
+
+```go
+x := unsafe.Pointer(&y)
+foo(x)
+```
+
+Other, which includes everything that doesn't fall under the first four.
+
+Use the `--filter-context` argument to filter counting to a specific context type. You can use `variable`, `parameter`,
+`assignment`, `call`, `other`, or `all`.
 
 
 ## Dependency management
