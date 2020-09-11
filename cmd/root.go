@@ -14,7 +14,7 @@ var matchFilter, contextFilter string
 var RootCmd = &cobra.Command{
 	Use:   "geiger",
 	Short: "Counts unsafe usages in dependencies",
-	Long: `https://github.com/stg-tud/thesis-2020-lauinger-code/go-geiger`,
+	Long: `https://github.com/jlauinger/go-geiger`,
 	Args: cobra.RangeArgs(0, 1000),
 	Run: func(cmd *cobra.Command, args []string) {
 		// run the go-geiger counter package Run function, which is the main entry point. Supply the configuration as

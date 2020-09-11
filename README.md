@@ -37,7 +37,7 @@ can focus auditing efforts onto those, or decide to switch libraries for one tha
 To install `go-geiger`, use the following command:
 
 ```
-go get github.com/stg-tud/thesis-2020-lauinger-code/go-geiger
+go get github.com/jlauinger/go-geiger
 ```
 
 This will install `go-geiger` to `$GOPATH/bin`, so make sure that it is included in your `$PATH` environment variable.
