@@ -17,6 +17,8 @@ var RootCmd = &cobra.Command{
 	Long: `https://github.com/stg-tud/thesis-2020-lauinger-code/go-geiger`,
 	Args: cobra.RangeArgs(0, 1000),
 	Run: func(cmd *cobra.Command, args []string) {
+		// run the go-geiger counter package Run function, which is the main entry point. Supply the configuration as
+		// requested by the CLI parameters
 		counter.Run(counter.Config{
 			MaxDepth:             maxDepth,
 			ShortenSeenPackages:  shortenSeenPackages,
@@ -36,6 +38,7 @@ var RootCmd = &cobra.Command{
 }
 
 func Execute() {
+	// execute the root command with Cobra
 	if err := RootCmd.Execute(); err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -43,6 +46,7 @@ func Execute() {
 }
 
 func init() {
+	// register command line flags, for their meanings see their respective usage comments
 	RootCmd.PersistentFlags().IntVarP(&maxDepth, "max-depth", "d", 10, "Maximum transitive import depth")
 	RootCmd.PersistentFlags().BoolVar(&shortenSeenPackages, "show-only-once", true, "Do not repeat packages, show them only once and abbreviate further imports")
 	RootCmd.PersistentFlags().BoolVarP(&printLinkToPkgGoDev, "link", "l",false, "Print link to pkg.go.dev instead of package name")
